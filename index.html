@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Activity</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron" style="background-color: #2F4F4F; color: white">
+        <h1 class="text-center">Anytime is Train Time</h1>
+        <h3 class="text-center">Better Than Septa</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><strong>Current Train Schedule</strong></h3>
+                </div>
+                <div class="panel-body">
+                  <table class="table table-hover" id='train-table'>
+                    <thead>
+                      <tr>
+                        <th>Train Name</th>
+                        <th>Destination</th>
+                        <th>Frequency(min)</th>
+                        <th>Next Arrival</th>
+                        <th>Minutes Away</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>Add Train</strong></h3>
+            </div>
+            <div class="panel-body">
+
+              <!-- Entry Form -->
+              <form>
+                <div class="form-group">
+                  <label for="train-name-input">Train Name</label>
+                  <input class="form-control" id="train-name-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="destination-input">Destination</label>
+                  <input class="form-control" id="destination-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="start-input">First Train Time (HH:mm - military time)</label>
+                  <input class="form-control" id="first-train-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="frequency-input">Frequency(min)</label>
+                  <input class="form-control" id="frequency-input" type="number">
+                </div>
+                <button class="btn btn-primary" id="add-train-btn" type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.js"></script>
+<script>
+  
+
+var config = {
+    apiKey: "AIzaSyDXwQQF_CwIYzd0meEGPmeoxmr1oeRPOqE",
+    authDomain: "train-scheduler-26c8e.firebaseapp.com",
+    databaseURL: "https://train-scheduler-26c8e.firebaseio.com",
+    projectId: "train-scheduler-26c8e",
+    storageBucket: "train-scheduler-26c8e.appspot.com",
+    messagingSenderId: "134693941267"
+  };
+  firebase.initializeApp(config);
+
+  var database = firebase.database();
+
+//on click function for adding user
+$("#add-train-btn").on("click", function(event){
+    event.preventDefault();
+
+var trainName = $("#train-name-input").val().trim();
+var destination = $("#destination-input").val().trim();
+//momentjs
+var firstTrain = moment($("#first-train-input").val().trim(), "HH:mm");
+var frequencyMin = $("#frequency-input").val().trim();
+
+var newTrain = {
+    name: trainName,
+    destination: destination,
+    firstTrain: firstTrain,
+    frequency: frequencyMin
+};
+
+database.ref().push(newTrain);
+$("#train-name-input").val("");
+$("#destination-input").val("");
+$("#first-train-input").val("");
+$("#frequency-input").val("");
+
+});
+
+
+//add train name
+//add train time
+//add train time - use moment.js
+//add train frequency
+//create variable to enter in firebase
+
+//adding child
+//childSnapshot?
+
+
+//bonus - add update and remove buttons
+
+
+</script>
+    
+</body>
+</html>
