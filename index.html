@@ -34,8 +34,8 @@
                                     <th>Train Name</th>
                                     <th>Destination</th>
                                     <th>Frequency(min)</th>
-                                    <th>Next Arrival</th>
                                     <th>Minutes Away</th>
+                                    <th>Next Arrival</th>
                                 </tr>
                             </thead>
                             <tbody id="train-body">
@@ -80,104 +80,12 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.js"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
     <script>
 
 
-        var config = {
-            apiKey: "AIzaSyDXwQQF_CwIYzd0meEGPmeoxmr1oeRPOqE",
-            authDomain: "train-scheduler-26c8e.firebaseapp.com",
-            databaseURL: "https://train-scheduler-26c8e.firebaseio.com",
-            projectId: "train-scheduler-26c8e",
-            storageBucket: "train-scheduler-26c8e.appspot.com",
-            messagingSenderId: "134693941267"
-        };
-        firebase.initializeApp(config);
 
-        var database = firebase.database();
-
-        //on click function for adding user
-        $("form").on("submit", function (event) {
-            event.preventDefault();
-
-            var trainName = $("#train-name-input").val().trim();
-            var destination = $("#destination-input").val().trim();
-            var firstTrain = $("#first-train-input").val().trim();
-            // var firstTrain = moment($("#first-train-input").val().trim()).format("HH:mm");
-            console.log(firstTrain);
-            // var firstTrainConverted = $(firstTrain).toString();
-            // var firstTrainTime = moment(firstTrainConverted).format("HH:mm");
-            // var firstTrainTime = moment($(firstTrain))
-            // moment($("#start-input").val().trim(), "DD/MM/YY").format("X");
-            // console.log(firstTrainTime);
-          
-        
-
-            var frequencyMin = $("#frequency-input").val().trim();
-
-            var newTrain = {
-                name: trainName,
-                destination: destination,
-                firstTrain: firstTrain,
-                frequency: frequencyMin
-            };
-            
-
-            var newTrainRef = database.ref().push(newTrain);
-            
-            $("#train-name-input").val("");
-            $("#destination-input").val("");
-            $("#first-train-input").val("");
-            $("#frequency-input").val("");
-
-
-        });
-
-        database.ref().on("child_added", function (snapshot) {
-            var trainsObject = snapshot.val();
-            var trainSchedule = $("tbody");
-
-            // console.log(trainsObject);
-
-
-            let trainRow = $("<tr>");
-            let nextArrival = getNextArrival(trainsObject.frequency, trainsObject.firstTrain);
-            let minutesAway = getMinutesAway(trainsObject.frequency, trainsObject.firstTrain);
-
-            trainRow.append("<td>" + trainsObject.name + "</td>");
-            trainRow.append("<td>" + trainsObject.destination + "</td>");
-            trainRow.append("<td>" + trainsObject.frequency + "</td>");
-            trainRow.append("<td>" + nextArrival + "</td>");
-            trainRow.append("<td>" + minutesAway + "</td>");
-
-            trainSchedule.append(trainRow);
-
-
-
-
-        });
-
-        function getNextArrival(frequency, firstTrain) {
-            var nextArrival = "10:15";
-
-            return nextArrival
-
-        }
-
-        function getMinutesAway(frequency, firstTrain) {
-            //equation to get minutes away
-            var minutesAway = "5";
-
-            return minutesAway
-        }
-
-//adding child
-//childSnapshot?
-//to get minutes away --> get current time, get first train time, get frequency
-// ex. if first train is at 5:05 am, frequency is 15 minutes, current time is 4:30
-// 
-
-//bonus - add update and remove buttons
-
+  
 
 
     </script>
