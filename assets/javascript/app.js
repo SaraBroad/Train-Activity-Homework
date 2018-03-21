@@ -11,7 +11,6 @@
 
         var database = firebase.database();
 
-        //on click function for adding user
         $("form").on("submit", function (event) {
             event.preventDefault();
 
@@ -57,10 +56,6 @@ var remainder = timeConverted % trainsObjectFrequency;
 var minutesAway = trainsObjectFrequency - remainder;
 console.log(minutesAway);
 
-// console.log(trainTime);
-
-//     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-//     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
 var nextArrivalTime = moment().add(minutesAway, "minutes");
 var nextArrival = (nextArrivalTime).format("HH:mm");
