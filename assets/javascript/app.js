@@ -18,7 +18,6 @@
             var destination = $("#destination-input").val().trim();
             var firstTrain = $("#first-train-input").val().trim();
             var firstTrainTime = moment(firstTrain, "HH:mm").subtract(1, "years");
-            console.log(firstTrainTime);
             var frequencyMin = $("#frequency-input").val().trim();
 
             var newTrain = {
