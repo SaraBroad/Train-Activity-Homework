@@ -62,7 +62,7 @@ console.log(minutesAway);
 //     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
 //     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
-var nextArrivalTime = moment().add(minutesAway);
+var nextArrivalTime = moment().add(minutesAway, "minutes");
 var nextArrival = (nextArrivalTime).format("HH:mm");
 
 
